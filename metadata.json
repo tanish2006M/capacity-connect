@@ -1,0 +1,8 @@
+{
+  "name": "Remix CAPACITY__CONNECT",
+  "description": "Digital Capacity Building \u0026 Learning Management Portal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

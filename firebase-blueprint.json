@@ -1,0 +1,101 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with role and voluntary organizational location data",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "fullName": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["trainee", "trainer", "admin"] },
+        "accountStatus": { "type": "string", "enum": ["active", "pending", "suspended"] },
+        "state": { "type": "string" },
+        "district": { "type": "string" },
+        "city": { "type": "string" },
+        "organization": { "type": "string" },
+        "department": { "type": "string" },
+        "designation": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "fullName", "email", "role"]
+    },
+    "Course": {
+      "title": "Course",
+      "description": "Capacity building curriculum program",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "title": { "type": "string" },
+        "tagline": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "level": { "type": "string" },
+        "trainerId": { "type": "string" },
+        "trainerName": { "type": "string" },
+        "durationHours": { "type": "number" },
+        "modulesCount": { "type": "number" },
+        "lessonsCount": { "type": "number" },
+        "status": { "type": "string" },
+        "rating": { "type": "number" },
+        "thumbnailUrl": { "type": "string" }
+      },
+      "required": ["id", "code", "title", "category"]
+    },
+    "Enrollment": {
+      "title": "Enrollment",
+      "description": "User course enrollment and lesson progress tracking",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "courseId": { "type": "string" },
+        "courseTitle": { "type": "string" },
+        "enrolledDate": { "type": "string" },
+        "progressPercent": { "type": "number" },
+        "status": { "type": "string", "enum": ["not-started", "in-progress", "completed"] },
+        "lastAccessedDate": { "type": "string" },
+        "lastAccessedLessonId": { "type": "string" }
+      },
+      "required": ["id", "userId", "courseId", "progressPercent", "status"]
+    },
+    "Attempt": {
+      "title": "Attempt",
+      "description": "Trainee examination attempt and scoring result",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "assessmentId": { "type": "string" },
+        "userId": { "type": "string" },
+        "score": { "type": "number" },
+        "maxScore": { "type": "number" },
+        "percentage": { "type": "number" },
+        "passed": { "type": "boolean" },
+        "attemptDate": { "type": "string" },
+        "timeSpentSeconds": { "type": "number" },
+        "attemptNumber": { "type": "number" }
+      },
+      "required": ["id", "assessmentId", "userId", "score", "passed"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles indexed by UID"
+    },
+    "/courses/{courseId}": {
+      "schema": "Course",
+      "description": "Published courses catalog"
+    },
+    "/enrollments/{enrollmentId}": {
+      "schema": "Enrollment",
+      "description": "User course enrollments"
+    },
+    "/attempts/{attemptId}": {
+      "schema": "Attempt",
+      "description": "User assessment attempts and transcripts"
+    }
+  }
+}
